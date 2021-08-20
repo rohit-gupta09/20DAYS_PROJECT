@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Theme Clock</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #000;
+            --secondary-color: #fff;
+        }
+
+        html {
+            transition: all 0.5s ease-in;
+        }
+
+        html.dark {
+            --primary-color: #fff;
+            --secondary-color: #333;
+        }
+
+        html.dark {
+            background-color: #111;
+            color: var(--primary-color);
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .mode {
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border: 0;
+            border-radius: 4px;
+            padding: 8px 10px;
+            position: absolute;
+            top: 100px;
+        }
+
+        .mode:focus {
+            outline: none;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .clock {
+            position: relative;
+            width: 200px;
+            height: 200px;
+        }
+
+        .neddle {
+            background-color: var(--primary-color);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            height: 65px;
+            width: 3px;
+            transform-origin: bottom center;
+            transition: all 0.5s ease-in;
+        }
+
+        .neddle.hour {
+            transform: translate(-50%, -100%) rotate(0deg);
+        }
+
+        .neddle.minute {
+            transform: translate(-50%, -100%) rotate(0deg);
+            height: 100px;
+        }
+
+        .neddle.second {
+            transform: translate(-50%, -100%) rotate(0deg);
+            height: 100px;
+            background-color: #e74c3c;
+        }
+
+        .center_point {
+            background-color: #e74c3c;
+            width: 10px;
+            height: 10px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .center_point::after {
+            content: "";
+            background-color: var(--primary-color);
+            width: 5px;
+            height: 5px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .time {
+            font-size: 60px;
+        }
+
+        .date {
+            color: #aaa;
+            font-size: 18px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .date .circle {
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            border-radius: 50%;
+            height: 22px;
+            width: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 18px;
+            transition: all 0.5s ease-in;
+            font-size: 12px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- <div class="Heading">Good Morning!</div> -->
+    <button class="mode">Dark mode</button>
+    <div class="container">
+
+        <div class="clock">
+            <div class="neddle hour "></div>
+            <div class="neddle minute"></div>
+            <div class="neddle second"></div>
+            <div class="center_point"></div>
+        </div>
+
+        <div class="time"></div>
+        <div class="date"></div>
+    </div>
+
+    <script>
+
+        const minuteL = document.querySelector('.minute');
+        const hourL = document.querySelector('.hour');
+        const secondL = document.querySelector('.second');
+        const timeL = document.querySelector('.time');
+        const dateL = document.querySelector('.date');
+        const buttonL = document.querySelector('.mode');
+
+        const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        const days = ["Sunday", "Moday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"];
+
+        buttonL.addEventListener('click', (e) => {
+            const html = document.querySelector('html')
+            if (html.classList.contains('dark')) {
+                console.log("clicked")
+                html.classList.remove('dark');
+                e.target.innerHTML = "Dark mode";
+            }
+            else {
+                html.classList.add('dark');
+                e.target.innerHTML = "Light mode"
+            }
+        });
+
+        const scale = (num, in_min, in_max, out_min, out_max) => {
+            return (num - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
+        }
+
+        function setTime() {
+            const time = new Date();
+            const month = time.getMonth();
+            const seconds = time.getSeconds();
+            const minutes = time.getMinutes();
+            const date = time.getDate();
+            const day = time.getDay();
+            const hours = time.getHours()
+            const hoursforClock = hours >= 13 ? hours % 12 : hours;
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+
+
+            hourL.style.transform = `translate(-50%,-100%) rotate(${scale(hoursforClock, 0, 11, 0, 360)}deg)`;
+            minuteL.style.transform = `translate(-50% , -100%) rotate(${scale(minutes, 0, 59, 0, 360)}deg)`;
+            secondL.style.transform = `translate(-50% , -100%) rotate(${scale(seconds, 0, 59, 0, 360)}deg)`;
+
+            timeL.innerHTML = `${hoursforClock}:${minutes < 10 ? `0${minutes}` : minutes}${ampm}`;
+            dateL.innerHTML = `${days[day]}, ${months[month]} <span class="circle">${date}</span>`;
+
+        }
+
+        setTime()
+        setInterval(setTime, 1000)
+
+    </script>
+</body>
+
+</html>
