@@ -1,0 +1,315 @@
+<!-- Tic Tac Toe Game -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TicTacToe</title>
+    <!-- Designing of the content and game -->
+    <style>
+        :root {
+            --text: #dbdfac;
+            --bg: #2c1b70;
+            --btn-bg: #eeb263;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            color: #dbdfac;
+            background-color: #2a1e5c;
+        }
+
+        .heading {
+            font-size: 50px;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            text-align: center;
+            color: #dbdfac;
+        }
+
+        .container {
+            height: 75vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        #app {
+            height: 50vh;
+            width: 41vw;
+            display: flex;
+            flex-wrap: wrap;
+            font-size: 60px;
+            margin-top: 50px;
+        }
+
+        .box {
+            /* height: 20vh; */
+            width: 20vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .game_heading {
+            background-color: #eeee85;
+        }
+
+        #app {
+            background: #2a1e5c;
+            display: grid;
+            grid-template-columns: 200px 200px 200px;
+            grid-template-rows: 200px 200px 200px;
+            grid-gap: 15px;
+        }
+
+        .box {
+            height: 200px;
+            width: 200px;
+            cursor: pointer;
+            background: rgb(253, 62, 62);
+        }
+
+        .game_heading {
+            padding-top: 20px;
+            padding-left: 100px;
+            padding-right: 100px;
+            padding-bottom: 20px;
+            margin: auto;
+            width: 50%;
+            border: 20px solid rgb(46, 117, 46);
+            border-radius: 50px
+        }
+
+        .playgame {
+            text-align: center;
+            font-family: "Times New Roman", Times, serif;
+            font-style: italic;
+            font-size: 40px;
+            color: rgb(10, 6, 8);
+            font-variant: small-caps;
+        }
+
+        .name {
+            text-align: center;
+            font-family: "sans-serif";
+            font-style: inherit, bold;
+            color: rgb(172, 3, 87);
+            font-size: 45px;
+        }
+
+        .restart {
+            padding: 10px 30px;
+            background-color: var(--btn-bg);
+            border: none;
+            border-radius: 10px;
+            color: var(--bg);
+            font-size: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        .x::before {
+            content: 'x';
+            font-size: 180px;
+        }
+
+        .o::before {
+            content: 'o';
+            font-size: 130px;
+        }
+
+        .middle {
+            color: rgb(94, 34, 64);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Basic structur of the game -->
+    <div class="game_heading">
+        <h2 class="playgame">WELCOME TO THE GAME</h2>
+        <h1 class="name">TIC <span class="middle">TAC</span> TOE</h1>
+    </div>
+    <div class="container">
+        <h1 class="heading">Play</h1>
+        <h2 id="strategy"></h2>
+        <button class="restart">Restart</button>
+        <div id="app">
+            <!-- 9 boxes are made with different id's -->
+            <div class="box" id="0">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="1">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="2">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="3">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="4">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="5">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="6">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="7">
+                <!-- <div class="symbol"></div> -->
+            </div>
+            <div class="box" id="8">
+                <!-- <div class="symbol"></div> -->
+            </div>
+        </div>
+    </div>
+    <script>
+        const cellDivs = document.querySelectorAll('.box');
+        const headingDiv = document.querySelector('.heading');
+        const strategy = document.querySelector('#strategy');
+        const restartDiv = document.querySelector('.restart')
+
+        // const spaces=[];
+        const oSymbol = "o";
+        const xSymbol = 'x';
+        let gameIsLive = true;
+        let xIsNext = true;
+
+        const letterToSymbol = (letter) => letter == 'x' ? xSymbol : oSymbol;
+        // console.log(letterToSymbol)
+        const handleWin = (letter) => {
+            if (letter == 'x') {
+                headingDiv.innerHTML = `${letterToSymbol(letter)} has won!`
+            }
+            else {
+                headingDiv.innerHTML = `<span>${letterToSymbol(letter)} has won!`
+            }
+        };
+
+        const checkGameStatus = () => {
+            const topLeft = cellDivs[0].classList[1];
+            const topMiddle = cellDivs[1].classList[1];
+            const topRight = cellDivs[2].classList[1];
+            const middleLeft = cellDivs[3].classList[1];
+            const middleMiddle = cellDivs[4].classList[1];
+            const middleRight = cellDivs[5].classList[1];
+            const bottomLeft = cellDivs[6].classList[1];
+            const bottomMiddle = cellDivs[7].classList[1];
+            const bottomRight = cellDivs[8].classList[1];
+
+
+            // CHECKING WINNER
+            if (topLeft && topLeft == topMiddle && topLeft == topRight) {
+                handleWin(topLeft);
+                cellDivs[0].classList.add('won');
+                cellDivs[1].classList.add('won');
+                cellDivs[2].classList.add('won');
+                console.log("1", topLeft)
+            }
+            else if (middleLeft && middleLeft == middleMiddle && middleLeft == middleRight) {
+                handleWin(middleLeft);
+                cellDivs[3].classList.add('won');
+                cellDivs[4].classList.add('won');
+                cellDivs[5].classList.add('won');
+            }
+            else if (bottomLeft && bottomLeft == bottomMiddle && bottomLeft == bottomRight) {
+                handleWin(bottomLeft);
+                cellDivs[6].classList.add('won');
+                cellDivs[7].classList.add('won');
+                cellDivs[8].classList.add('won');
+            }
+            else if (topLeft && topLeft == middleLeft && topLeft == bottomLeft) {
+                handleWin(topLeft);
+                cellDivs[0].classList.add('won');
+                cellDivs[3].classList.add('won');
+                cellDivs[6].classList.add('won');
+            }
+            else if (topMiddle && topMiddle == middleMiddle && topMiddle == bottomMiddle) {
+                handleWin(topMiddle);
+                cellDivs[1].classList.add('won');
+                cellDivs[4].classList.add('won');
+                cellDivs[7].classList.add('won');
+            }
+            else if (topRight && topRight == middleRight && topRight == bottomRight) {
+                handleWin(topRight);
+                cellDivs[2].classList.add('won');
+                cellDivs[5].classList.add('won');
+                cellDivs[8].classList.add('won');
+            }
+            else if (topLeft && topLeft == middleMiddle && topLeft == bottomRight) {
+                handleWin(topLeft);
+                cellDivs[0].classList.add('won');
+                cellDivs[4].classList.add('won');
+                cellDivs[8].classList.add('won');
+            }
+            else if (topRight && topRight == middleMiddle && topRight == bottomLeft) {
+                handleWin(topRight);
+                cellDivs[2].classList.add('won');
+                cellDivs[4].classList.add('won');
+                cellDivs[6].classList.add('won');
+            }
+            else if (topLeft && topMiddle && topRight && middleLeft && middleMiddle && middleRight && bottomLeft && bottomMiddle && bottomRight) {
+                gameIsLive = false;
+                headingDiv.innerHTML = 'Game Is Tie!'
+            }
+            else {
+                xIsNext = !xIsNext;
+                if (xIsNext) {
+                    headingDiv.innerHTML = `${xSymbol} is next`;
+                }
+                else {
+                    headingDiv.innerHTML = `<span>${oSymbol} is next`;
+                }
+            }
+        };
+        const handleReset = () => {
+            xIsNext = true;
+            headingDiv.innerHTML = `Play`;
+            for (const cellDiv of cellDivs) {
+                cellDiv.classList.remove('x');
+                cellDiv.classList.remove('o');
+                cellDiv.classList.remove('won');
+            }
+            gameIsLive = true;
+        };
+
+        const handleCellClick = (e) => {
+            const classList = e.target.classList;
+            if (!gameIsLive || classList[1] == "x" || classList[1] == "o") {
+                return;
+            }
+            if (xIsNext) {
+                classList.add('x');
+                checkGameStatus();
+            }
+            else {
+                classList.add('o');
+                checkGameStatus()
+            }
+        };
+
+        restartDiv.addEventListener('click', handleReset);
+        for (const cellDiv of cellDivs) {
+            cellDiv.addEventListener('click', handleCellClick)
+        }
+
+
+    </script>
+</body>
+
+</html>
