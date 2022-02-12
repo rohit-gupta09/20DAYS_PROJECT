@@ -1,0 +1,277 @@
+body {
+  box-sizing: border-box;
+}
+.ig {
+  color: white;
+  font-size: 25px;
+  margin: 3px;
+}
+
+.color {
+  background-color: #444444;
+  min-height: 90vh;
+}
+
+.creative {
+  color: white;
+  font-size: 18px;
+}
+
+.pro_h1 {
+  color: white;
+  text-align: center;
+}
+
+.BTS {
+  text-align: center;
+  color: white;
+  width: 55%;
+  height: auto;
+}
+
+.First {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.grey {
+  background-color: #171010;
+  min-height: 8vh;
+  position: relative;
+  top: -2rem;
+  /* -ms-transform: rotate(20deg);  */
+  transform: rotate(-1deg);
+}
+
+.rid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+  top: -70px;
+}
+.img_first {
+  margin-top: 10px !important;
+  border: 1px solid #1b9999;
+  background-color: white;
+  border-radius: 10px;
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.second {
+  margin-bottom: 50px;
+}
+
+.ig21 {
+  margin-top: 15px;
+  color: #f29191;
+  font-size: 40px;
+  padding-bottom: 10px;
+}
+
+.ig22 {
+  margin-top: 15px;
+  color: #51c4d3;
+  font-size: 40px;
+  padding-bottom: 10px;
+}
+
+.ig23 {
+  margin-top: 15px;
+  color: #9fe6a0;
+  font-size: 40px;
+  padding-bottom: 10px;
+}
+
+h4 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.text_welcome {
+  text-align: center;
+  margin-top: 20px;
+}
+.try {
+  display: flex;
+  flex-direction: row;
+  /* align-items: center; */
+  justify-content: center;
+}
+.try2 {
+  justify-content: center;
+}
+
+.ico_div {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #f29191;
+}
+.ico {
+  position: relative;
+  top: 13px;
+  left: 12px;
+
+  color: #991b1b;
+}
+.diff {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.diff_ico {
+  display: flex;
+}
+.small_div {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #f29191;
+}
+.small_ico {
+  position: relative;
+  top: 2px;
+  left: 8px;
+
+  color: #991b1b;
+}
+.head_user {
+  margin-top: 10%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 10%;
+}
+.card {
+  margin: 30px;
+}
+
+.ico_card {
+  justify-content: center;
+  display: flex;
+}
+.card_div1 {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: blue;
+}
+.card_div2 {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #51c4d3;
+}
+.card {
+  border: none !important;
+}
+.dark_body {
+  background-color: rgba(24, 24, 27, 1);
+}
+.head_user2 {
+    position: relative;
+    top: 110px;
+    margin-top: 5%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 18%;
+}
+.dark_rid {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  position: relative;
+}
+
+.dark_img_first {
+  margin-top: 10px !important;
+  width: auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.dark_ico_div {
+  width: 50px;
+  margin-bottom: 15px;
+  height: 50px;
+  background-color: white;
+  border-radius: 50%;
+}
+.dark_ico {
+  color: black;
+  position: relative;
+  top: 15px;
+  font-size: 30px;
+  left: 10px;
+}
+.for_form{
+    margin-top: 10%;
+  display: flex;
+
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 5%;
+}
+.form_con{
+    margin-bottom: 7%;
+    background-color: rgba(240, 241, 232, 0.877);
+}
+.from_p{
+    padding: 40px;
+}
+
+
+/* footer */
+.footer{
+    background-color: rgba(240, 241, 232 , 0.877);
+}
+
+.xyz{
+    font-size:24px;
+    color: black;
+    text-transform: capitalize;
+    margin-bottom: 30px;
+    position: relative;
+    margin-top: 20px;
+    text-decoration: none;
+}
+
+.handw{
+    color:black;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+.footer_div_ico{
+    display: flex;
+}
+
+/* overlay */
+.image2{
+  border-radius: 10px;
+  text-align: center;
+  display: block;
+}
+
+.orange2{
+/* width: 80%; */
+text-align: center;
+position: relative;
+top:-5rem ;
+/* opacity: 0.2rem;  */
+padding: 2px;
+/* border-radius:5%; */
+background: rgb(245, 75, 8);
+/* background: rgba(0, 0, 0, 0.5); */
+/* font-size: 50%; */
+/* font-weight: bolder; */
+}
